@@ -1,8 +1,5 @@
 <?php
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-        $data = unserialize(file_get_contents(dirname(__DIR__, 1) . '/data.bank'));
-
         function isValidName ($name , $what) {
             if(strlen($name) <= 3) {
                 header('Location: http://localhost/manophp/bank_v1/pages/naujas.php?'.$what.'=0');
@@ -55,38 +52,47 @@
                 die;
             }
         }
-
-        function isValidIBAN($num){
+        function isValidIBAN(&$num, $arr) {
             if(
-                strlen($num) !== 24 ||
-                substr($num, 0 , 2) !== 'LT' ||
-                (int) substr($num, 2 , 2) <= 99 ||
-                (int) substr($num, 5 , 4) <= 9999 ||
-                (int) substr($num, 10 , 4) <= 9999 ||
-                (int) substr($num, 15 , 4) <= 9999 ||
-                (int) substr($num, 20 , 4) <= 9999
+                strlen($num) !== 20 ||
+                preg_replace('/\d+/', '', $num) !== 'LT'
             ) {
                 header('Location: http://localhost/manophp/bank_v1/pages/naujas.php?IBAN=0');
                 die;
             }
+            foreach($arr as $client) {
+                if ($client['client_account_number'] === $num){
+                    $num = substr_replace($num, rand(0,9), rand(2, 19), 1);
+                    isValidIBAN($num, $arr);
+                    break;
+                }
+            }
         }
 
-        isValidName($_POST['new-client-name'], 'name');
-        isValidName($_POST['new-client-surname'], 'surname');
-        isValidID($_POST['new-client-id']);
+        $data = unserialize(file_get_contents(dirname(__DIR__, 1) . '/data.bank'));
+
+        $name = $_POST['new-client-name'];
+        $surname = $_POST['new-client-surname'];
+        $id = $_POST['new-client-id'];
+        $iban = $_POST['new-client-account-number'];
+
+        isValidName($name, 'name');
+        isValidName($surname, 'surname');
+        isValidID($id);
+        isValidIBAN($iban, $data);       
 
         $client = [
-            'client_name' => $_POST['new-client-name'],
-            'client_surname' => $_POST['new-client-surname'],
-            'client_account_number' => $_POST['new-client-account-number'],
-            'client_id' => $_POST['new-client-id'],
+            'client_name' =>  $name,
+            'client_surname' => $surname,
+            'client_account_number' => $iban,
+            'client_id' =>  $id,
             'funds' => 0,
         ];
         $data[] = $client;
 
         file_put_contents(dirname(__DIR__, 1) . '/data.bank', serialize($data));
 
-        header('Location: http://localhost/manophp/bank_v1/pages/naujas.php?');
+        header('Location: http://localhost/manophp/bank_v1/pages/naujas.php?saved=1');
         die;
     }
     
@@ -110,10 +116,11 @@
             <input class="new-client-surname" name="new-client-surname" type="text" style="margin-bottom:<?= isset($_GET['surname']) && $_GET['surname'] == 0 ? '1em': '0' ?>">
             <div class="error-message err-surname" <?= isset($_GET['surname']) && $_GET['surname'] == 0 ? '': 'hidden' ?> >Pavarde turi buti ilgesne nei 3 simboliai</div>
             <label for="">Saskaitos nr.</label>
-            <input class="new-client-account-number" name="new-client-account-number" type="text" value="<?= 'LT'.rand(0,9).rand(0,9).' '.rand(0,9).rand(0,9).rand(0,9).rand(0,9).' '.rand(0,9).rand(0,9).rand(0,9).rand(0,9).' '.rand(0,9).rand(0,9).rand(0,9).rand(0,9).' '.rand(0,9).rand(0,9).rand(0,9).rand(0,9) ?>" readonly>
+            <input class="new-client-account-number" name="new-client-account-number" type="text" value="<?= 'LT'.rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9) ?>" readonly>
             <label for="">Asmens kodas</label>
             <input class="new-client-id" name="new-client-id" type="text">
             <button type="submit">Pridėti klientą</button>
+            <div <?= isset($_GET['saved']) && $_GET['saved'] == 1 ? '': 'hidden' ?>>Klientas sekmingai pridetas</div>
         </form>
     </section>
 </body>
