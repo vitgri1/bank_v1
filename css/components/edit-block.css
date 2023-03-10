@@ -1,0 +1,16 @@
+.edit-block{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 1em;
+    border: 1px solid red;
+    border-radius: 1em;
+    padding: 0.5em;
+    width: 80%;
+    margin: 2em 10%;
+    text-align: center;
+    align-items: center;
+}
+.edit-block > input{
+    min-width: 3em;
+    padding: 0.5em 0;
+}

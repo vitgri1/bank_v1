@@ -1,0 +1,29 @@
+/* base */
+@import '../base/base.css';
+/* components */
+
+/* CUSTOM STYLE BELOW THIS COMMENT LINE */
+
+.client-list {
+    list-style-type: none;
+    width: 80%;
+    margin: 2em 10%;
+}
+
+.client-list > .client-list-item {
+    border: 1px solid greenyellow;
+    padding: 0.5em;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5em;
+    justify-items: center;
+    border-bottom: none;
+}
+
+.client-list > .client-list-item:last-child {
+    border-bottom: 1px solid greenyellow;
+}
+
+.client-list > .client-list-item > button {
+    width: 100%;
+}

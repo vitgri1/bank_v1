@@ -1,0 +1,42 @@
+/* base */
+@import '../base/base.css';
+/* components */
+
+/* CUSTOM STYLE BELOW THIS COMMENT LINE */
+
+.new-client-box{
+    background-color: red;
+}
+
+.new-client-box > form {
+    display: grid;
+    grid-template-columns: 0.8fr 1fr;
+    gap: 0.5em;
+    width: 80%;
+    margin: 2em 10%;
+    align-items: center;
+    position: relative;
+}
+.error-message{
+    position: absolute;
+
+    right: 0;
+    width: calc(100%/1.8);
+    padding-left: 1em;
+}
+
+.err-name {
+    top: 1.5em;
+}
+
+.err-surname {
+    top: 3.5em;
+}
+
+.new-client-box > form > input {
+    width: 100%;
+}
+
+.new-client-box > form > button {
+    padding: 0.75em 2em;
+}
