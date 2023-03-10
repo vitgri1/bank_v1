@@ -1,3 +1,17 @@
+<?php
+
+require dirname(__DIR__, 1) . '/components/edit.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
+    $client['funds'] = (int) $client['funds'] + (int) $_POST['value'];
+    $all_clients[] = $client;
+    $all_clients = serialize($all_clients);
+    file_put_contents(dirname(__DIR__, 1) . '/data.bank', $all_clients);
+    header ('Location: http://localhost/manophp/bank_v1/pages/prideti.php?id='.$id);
+    die;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,11 +28,13 @@
         <div>Sąskaitos likutis</div>
         <div>Pridedama suma</div>
         <div></div>
-        <div>Vardas</div>
-        <div>Pavardė</div>
-        <div>Sąskaitos likutis</div>
-        <input type="number">
-        <button>Pridėti lėšas</button>
+        <div><?= $client['client_name'] ?></div>
+        <div><?= $client['client_surname'] ?></div>
+        <div><?= $client['funds'] ?></div>
+        <form action="" method="post">
+            <input name="value" type="number">
+            <button type="submit">Pridėti lėšas</button>
+        </form>
     </section>
 </body>
 </html>

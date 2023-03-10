@@ -1,5 +1,5 @@
 <?php
-
+    $data = unserialize(file_get_contents(dirname(__DIR__, 1) . '/data.bank'));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,9 +25,9 @@
                 <button>Ištrinti</button>
             </li>
             <?php
-                $data = unserialize(file_get_contents(dirname(__DIR__, 1) . '/data.bank'));
-                if (isset($data)){
-                foreach ($data as $client) : ?>
+                if (isset($data) && count($data) > 0){
+                    usort($data,fn($a,$b)=> $a['client_surname'] <=> $b['client_surname']);
+                    foreach ($data as $client) : ?>
             <li class="client-list-item">
                 <div><?= $client['client_name'] ?></div>
                 <div><?= $client['client_surname'] ?></div>
@@ -35,13 +35,15 @@
                 <div><?= $client['client_account_number'] ?></div>
                 <div><?= $client['funds'] ?></div>
                 <div></div>
-                <a href="http://localhost/manophp/bank_v1/pages/prideti.php">Pridėti lėšų</a>
-                <a href="http://localhost/manophp/bank_v1/pages/nuskaiciuoti.php">Nuskaičiuoti lėšas</a>
+                <a href="http://localhost/manophp/bank_v1/pages/prideti.php?id=<?= $client['client_id'] ?>">Pridėti lėšų</a>
+                <a href="http://localhost/manophp/bank_v1/pages/nuskaiciuoti.php?id=<?= $client['client_id'] ?>">Nuskaičiuoti lėšas</a>
                 <form action="http://localhost/manophp/bank_v1/pages/istrinti.php?id=<?= $client['client_id'] ?>" method="post">
                     <button type="submit">Ištrinti</button>
                 </form>
             </li>
-            <?php endforeach;} ?>
+            <?php endforeach;} else {
+                echo '<li class="client-list-item"><div> Nei vieno kliento nėra :( </div></li>';
+            }?>
         </ul>
     </section>
     <?php 
@@ -55,3 +57,9 @@
     <?php endif ?>
 </body>
 </html>
+
+<!-- 
+    53309240061
+    33309240064
+    63309240062
+ -->
