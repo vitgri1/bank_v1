@@ -26,7 +26,7 @@
             </li>
             <?php
                 $data = unserialize(file_get_contents(dirname(__DIR__, 1) . '/data.bank'));
-                if (isset($data[0])){
+                if (isset($data)){
                 foreach ($data as $client) : ?>
             <li class="client-list-item">
                 <div><?= $client['client_name'] ?></div>
@@ -37,10 +37,21 @@
                 <div></div>
                 <a href="http://localhost/manophp/bank_v1/pages/prideti.php">Pridėti lėšų</a>
                 <a href="http://localhost/manophp/bank_v1/pages/nuskaiciuoti.php">Nuskaičiuoti lėšas</a>
-                <button>Ištrinti</button>
+                <form action="http://localhost/manophp/bank_v1/pages/istrinti.php?id=<?= $client['client_id'] ?>" method="post">
+                    <button type="submit">Ištrinti</button>
+                </form>
             </li>
             <?php endforeach;} ?>
         </ul>
     </section>
+    <?php 
+    if (isset($_GET['deleted'])) : ?>
+        <div class="delete-popup">
+        <div>Sekmingai istrynete klienta kurio asmens kodas buvo: <?= $_GET['deleted'] ?></div>
+        <form action="" method="get">
+            <button type="submit">OK</button>
+        </form>
+        </div>
+    <?php endif ?>
 </body>
 </html>

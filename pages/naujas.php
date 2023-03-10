@@ -119,6 +119,7 @@
             <input class="new-client-account-number" name="new-client-account-number" type="text" value="<?= 'LT'.rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9) ?>" readonly>
             <label for="">Asmens kodas</label>
             <input class="new-client-id" name="new-client-id" type="text">
+            <div class="error-message err-id" <?= isset($_GET['ID']) && $_GET['ID'] == 0 ? '': 'hidden' ?> >Netinkamas asmens kodas</div>
             <button type="submit">Pridėti klientą</button>
             <div <?= isset($_GET['saved']) && $_GET['saved'] == 1 ? '': 'hidden' ?>>Klientas sekmingai pridetas</div>
         </form>

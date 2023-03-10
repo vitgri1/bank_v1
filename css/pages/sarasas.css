@@ -27,3 +27,19 @@
 .client-list > .client-list-item > button {
     width: 100%;
 }
+
+.delete-popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: calc(50vh - 5em) calc(50% - 175px);
+    height: 100vh;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    background-color: aquamarine;
+}
