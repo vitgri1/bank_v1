@@ -32,6 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
     <link rel="stylesheet" href="../css/pages/nuskaiciuoti.css">
 </head>
 <body>
+    <?php 
+        $menu_settings = ['here'=> 4, 'edit' => true];
+        require dirname(__DIR__, 1) . '/components/menu.php';
+    ?>
     <section class="withdraw-client edit-block">
         <div>Vardas</div>
         <div>Pavardė</div>

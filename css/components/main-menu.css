@@ -1,0 +1,31 @@
+.main-menu{
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    gap: 1em;
+    width: 80%;
+    margin: 2em 10%;
+}
+
+.main-menu > .main-menu-links {
+    display: flex;
+    gap: 1em;
+}
+
+.main-menu > .main-menu-links > a{
+    color: #000;
+    text-decoration: none;
+    border: 1px solid #00000054;
+    padding: 0.75em 2em;
+    line-height: 1em;
+    display: inline-block;
+}
+
+.main-menu > .main-menu-links > a:hover{
+    background-color: #00000044;
+}
+
+.main-menu > .main-menu-links > .here-rn,
+.main-menu > .main-menu-links > .here-rn:hover {
+    background-color: greenyellow;
+}

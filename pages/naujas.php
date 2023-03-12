@@ -107,6 +107,10 @@
     <link rel="stylesheet" href="../css/pages/naujas.css">
 </head>
 <body>
+    <?php 
+        $menu_settings = ['here'=> 2, 'edit' => false];
+        require dirname(__DIR__, 1) . '/components/menu.php';
+    ?>
     <section class="new-client-box">
         <form action="" method="post">
             <label for="">Vardas</label>

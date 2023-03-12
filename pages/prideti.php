@@ -27,6 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
     <link rel="stylesheet" href="../css/pages/prideti.css">
 </head>
 <body>
+    <?php 
+        $menu_settings = ['here'=> 3, 'edit' => true];
+        require dirname(__DIR__, 1) . '/components/menu.php';
+    ?>
     <section class="deposit-client edit-block">
         <div>Vardas</div>
         <div>Pavardė</div>

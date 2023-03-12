@@ -1,7 +1,7 @@
 /* base */
 @import '../base/base.css';
 /* components */
-
+@import '../components/main-menu.css';
 /* CUSTOM STYLE BELOW THIS COMMENT LINE */
 
 .new-client-box{

@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="../css/pages/sarasas.css">
 </head>
 <body>
+    <?php 
+        $menu_settings = ['here'=> 1, 'edit' => false];
+        require dirname(__DIR__, 1) . '/components/menu.php';
+    ?>
     <section class="client-list-box">
         <ul class="client-list">
             <li class="client-list-item">
