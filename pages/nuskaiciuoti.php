@@ -3,11 +3,21 @@
 require dirname(__DIR__, 1) . '/components/edit.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
-    $client['funds'] = (int) $client['funds'] - (int) $_POST['value'];
+    if ((int) $_POST['value'] < 0){
+        $extra = 0;
+    } else {
+        $extra = (int) $_POST['value'];
+    }
+    if ((int) $client['funds'] - $extra < 0){
+        header ('Location: http://localhost/manophp/bank_v1/pages/nuskaiciuoti.php?id='.$id.'&negative=1');
+        die;
+    } else {
+        header ('Location: http://localhost/manophp/bank_v1/pages/nuskaiciuoti.php?id='.$id);
+    }
+    $client['funds'] = (int) $client['funds'] - $extra;
     $all_clients[] = $client;
     $all_clients = serialize($all_clients);
     file_put_contents(dirname(__DIR__, 1) . '/data.bank', $all_clients);
-    header ('Location: http://localhost/manophp/bank_v1/pages/nuskaiciuoti.php?id='.$id);
     die;
 }
 
@@ -36,5 +46,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
             <button type="submit">Nuskaičiuoti lėšas</button>
         </form>
     </section>
+    <?php 
+    if (isset($_GET['negative'])) : ?>
+        <div class="delete-popup">
+        <div>Negalite nuskaiciuoti daugiau lesu nei klientas turi!</div>
+        <form action="http://localhost/manophp/bank_v1/pages/nuskaiciuoti.php?id=<?= $_GET['id'] ?>" method="post">
+            <button type="submit">OK</button>
+        </form>
+        </div>
+    <?php endif ?>
 </body>
 </html>

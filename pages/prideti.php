@@ -3,7 +3,12 @@
 require dirname(__DIR__, 1) . '/components/edit.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
-    $client['funds'] = (int) $client['funds'] + (int) $_POST['value'];
+    if ((int) $_POST['value'] < 0){
+        $extra = 0;
+    } else {
+        $extra = (int) $_POST['value'];
+    }
+    $client['funds'] = (int) $client['funds'] + $extra;
     $all_clients[] = $client;
     $all_clients = serialize($all_clients);
     file_put_contents(dirname(__DIR__, 1) . '/data.bank', $all_clients);
