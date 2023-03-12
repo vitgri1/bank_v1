@@ -1,6 +1,6 @@
 .edit-block{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1.5fr;
     gap: 1em;
     border: 1px solid red;
     border-radius: 1em;
@@ -10,7 +10,12 @@
     text-align: center;
     align-items: center;
 }
-.edit-block > input{
+.edit-block > form{
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+}
+.edit-block > form > input{
     min-width: 3em;
     padding: 0.5em 0;
 }

@@ -32,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
         <div>Pavardė</div>
         <div>Sąskaitos likutis</div>
         <div>Pridedama suma</div>
-        <div></div>
         <div><?= $client['client_name'] ?></div>
         <div><?= $client['client_surname'] ?></div>
         <div><?= $client['funds'] ?></div>
