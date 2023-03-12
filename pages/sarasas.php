@@ -54,6 +54,14 @@
             <button type="submit">OK</button>
         </form>
         </div>
+    <?php endif;
+    if (isset($_GET['notdeleted'])) : ?>
+        <div class="delete-popup not-delete">
+        <div>Negalite istrinti saskaitoje pinigu turincio kliento kurio asmens kodas yra: <?= $_GET['notdeleted'] ?></div>
+        <form action="" method="get">
+            <button type="submit">OK</button>
+        </form>
+        </div>
     <?php endif ?>
 </body>
 </html>
