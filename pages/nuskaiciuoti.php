@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
     </section>
     <?php 
     if (isset($_GET['negative'])) : ?>
-        <div class="delete-popup">
+        <div class="delete-popup negative">
         <div>Negalite nuskaiciuoti daugiau lesu nei klientas turi!</div>
         <form action="http://localhost/manophp/bank_v1/pages/nuskaiciuoti.php?id=<?= $_GET['id'] ?>" method="post">
             <button type="submit">OK</button>
