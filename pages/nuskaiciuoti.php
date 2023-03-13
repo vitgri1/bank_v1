@@ -1,6 +1,6 @@
 <?php
 
-require dirname(__DIR__, 1) . '/components/edit.php';
+require __DIR__ . '/../components/edit.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
     if ((int) $_POST['value'] < 0){
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
     $client['funds'] = (int) $client['funds'] - $extra;
     $all_clients[] = $client;
     $all_clients = serialize($all_clients);
-    file_put_contents(dirname(__DIR__, 1) . '/data.bank', $all_clients);
+    file_put_contents(__DIR__ . '/../data.bank', $all_clients);
     die;
 }
 
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
 <body>
     <?php 
         $menu_settings = ['here'=> 4, 'edit' => true];
-        require dirname(__DIR__, 1) . '/components/menu.php';
+        require __DIR__ . '/../components/menu.php';
     ?>
     <section class="withdraw-client edit-block">
         <div>Vardas</div>

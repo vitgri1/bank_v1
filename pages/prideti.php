@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
 <body>
     <?php 
         $menu_settings = ['here'=> 3, 'edit' => true];
-        require dirname(__DIR__, 1) . '/components/menu.php';
+        require __DIR__ . '/../components/menu.php';
     ?>
     <section class="deposit-client edit-block">
         <div>Vardas</div>

@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST' || !isset($_GET['id'])) {
 
 $id = $_GET['id'];
 
-$clients = unserialize(file_get_contents(dirname(__DIR__, 1) . '/data.bank'));
+$clients = unserialize(file_get_contents(__DIR__ . '/../data.bank'));
 
 $client = array_filter($clients, fn($c) => $c['client_id'] === $id);
 $client = $client[array_key_first($client)];
@@ -21,4 +21,4 @@ if ($client['funds'] > 0) { // if not deleted
 }
 
 $clients = serialize($clients);
-file_put_contents(dirname(__DIR__, 1) . '/data.bank', $clients);
+file_put_contents(__DIR__ . '/../data.bank', $clients);

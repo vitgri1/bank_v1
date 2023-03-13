@@ -1,5 +1,5 @@
 <?php
-    $data = unserialize(file_get_contents(dirname(__DIR__, 1) . '/data.bank'));
+    $data = unserialize(file_get_contents(__DIR__ . '/../data.bank'));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +13,7 @@
 <body>
     <?php 
         $menu_settings = ['here'=> 1, 'edit' => false];
-        require dirname(__DIR__, 1) . '/components/menu.php';
+        require __DIR__ . '/../components/menu.php';
     ?>
     <section class="client-list-box">
         <ul class="client-list">

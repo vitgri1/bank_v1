@@ -69,7 +69,7 @@
             }
         }
 
-        $data = unserialize(file_get_contents(dirname(__DIR__, 1) . '/data.bank'));
+        $data = unserialize(file_get_contents(__DIR__ . '/../data.bank'));
 
         $name = $_POST['new-client-name'];
         $surname = $_POST['new-client-surname'];
@@ -90,7 +90,7 @@
         ];
         $data[] = $client;
 
-        file_put_contents(dirname(__DIR__, 1) . '/data.bank', serialize($data));
+        file_put_contents(__DIR__ . '/../data.bank', serialize($data));
 
         header('Location: http://localhost/manophp/bank_v1/pages/naujas.php?saved=1');
         die;
@@ -109,7 +109,7 @@
 <body>
     <?php 
         $menu_settings = ['here'=> 2, 'edit' => false];
-        require dirname(__DIR__, 1) . '/components/menu.php';
+        require __DIR__ . '/../components/menu.php';
     ?>
     <section class="new-client-box">
         <form action="" method="post">
