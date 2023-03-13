@@ -8,6 +8,12 @@ if (isset($_SESSION['values'])) {
     $values = $_SESSION['values'];
     unset($_SESSION['values']);
 }
+if (isset($_SESSION['name'], $_SESSION['logged_in'])) {
+    $logged_in = $_SESSION['name'];
+} else {
+    header ('Location: http://localhost/manophp/bank_v1/login.php');
+    die;
+}
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         function isValidName ($name) {
             if(strlen($name) <= 3) {

@@ -2,6 +2,13 @@
 
 require __DIR__ . '/../components/edit.php';
 
+if (isset($_SESSION['name'], $_SESSION['logged_in'])) {
+    $logged_in = $_SESSION['name'];
+} else {
+    header ('Location: http://localhost/manophp/bank_v1/login.php');
+    die;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
     header ('Location: http://localhost/manophp/bank_v1/pages/nuskaiciuoti.php?id='.$id);
     if ((float) $_POST['value'] <= 0){

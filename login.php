@@ -1,21 +1,39 @@
 <?php
 
-// require __DIR__ . '/components/signup.php';
+session_start();
+// require __DIR__ . '/db/signup.php';
+if (isset($_SESSION['invalid'])) {
+    $error = $_SESSION['invalid'];
+    unset($_SESSION['invalid']);
+}
+if (isset($_SESSION['values'])) {
+    $values = $_SESSION['values'];
+    unset($_SESSION['values']);
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
-    $all_logins = json_decode(file_get_contents(__DIR__ . '/login.json'), 1);
+    $_SESSION['values'] = ['name' =>  $_POST['login-name'], 'password' => $_POST['login-password']];
+    $all_logins = json_decode(file_get_contents(__DIR__ . '/db/login.json'), 1);
     $user = array_filter($all_logins, fn($l) => $l['name'] === $_POST['login-name']);
     if (count($user) === 0){
-        header('Location: http://localhost/manophp/bank_v1/login.php?name=invalid');
+        $_SESSION['invalid'] = 'Neteisingas prisijungimo vardas';
+        header('Location: http://localhost/manophp/bank_v1/login.php');
         die;
     }
     $user = $user[array_key_first($user)];
-    if (!password_verify($_POST['login-password'] ,$user['password'])){
-        header('Location: http://localhost/manophp/bank_v1/login.php?password=invalid');
+    if (!password_verify($_POST['login-password'], $user['password'])){
+        $_SESSION['invalid'] = 'Neteisingas slaptažodis';
+        header('Location: http://localhost/manophp/bank_v1/login.php');
         die;
     }
-    echo 'Password is valid!';
-// baigiau cia ^^^^^^^^-------------------------------
+    $_SESSION['logged_in'] = true;
+    $_SESSION['name'] = $user['name'];
+    unset($_SESSION['values']);
+    header('Location: http://localhost/manophp/bank_v1/pages/sarasas.php');
+    die;
+}
+if (isset($_SESSION['name'], $_SESSION['logged_in'])) {
+    unset($_SESSION['name'], $_SESSION['logged_in']);
 }
 
 ?>
@@ -31,16 +49,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
 <body>
     <section class="login">
         <form action="" method="post">
-            <input name="login-name" type="text" placeholder="Name">
-            <input name="login-password" type="text" placeholder="Password">
+            <input name="login-name" type="text" placeholder="Name"
+            <?= isset($values)? 'value="'.$values['name'].'"':'' ?>
+            >
+            <input name="login-password" type="text" placeholder="Password"
+            <?= isset($values)? 'value="'.$values['password'].'"':'' ?>
+            >
             <button type="submit">Prisijungti</button>
         </form>
-        <?php if(isset($_GET['name'])) : ?>
-            <div>Neegzistuoja toks prisijungimo vardas</div>
+        <?php if(isset($error)) : ?>
+            <div><?= $error ?></div>
         <?php endif ?>
-        <?php if(isset($_GET['password'])) : ?>
-            <div>Neteisingas slaptazodis</div>
-        <?php endif ?>
+
     </section>
 </body>
 </html>

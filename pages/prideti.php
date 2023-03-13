@@ -1,6 +1,13 @@
 <?php
 
-require dirname(__DIR__, 1) . '/components/edit.php';
+require __DIR__ . '/../components/edit.php';
+
+if (isset($_SESSION['name'], $_SESSION['logged_in'])) {
+    $logged_in = $_SESSION['name'];
+} else {
+    header ('Location: http://localhost/manophp/bank_v1/login.php');
+    die;
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
     header ('Location: http://localhost/manophp/bank_v1/pages/prideti.php?id='.$id);
@@ -13,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
     $all_clients[] = $client;
     $all_clients = serialize($all_clients);
     $_SESSION['msg'] = ['type' => 'deposit', 'text' => 'Sėkmingai pridėjote '.$extra. '€'];
-    file_put_contents(dirname(__DIR__, 1) . '/data.bank', $all_clients);
+    file_put_contents(__DIR__ . '/../data.bank', $all_clients);
     die;
 }
 

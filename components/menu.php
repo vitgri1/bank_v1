@@ -1,6 +1,12 @@
 <?php if (isset($menu_settings)): ?>
     <section class="main-menu">
-        <h1>Vitalijaus bankas</h1>
+        <div>
+            <h1>Vitalijaus bankas</h1>
+            <div>
+                <?= isset($logged_in) ? $logged_in : '' ?>
+                <a href="http://localhost/manophp/bank_v1/login.php">Log out</a>
+            </div>
+        </div>
         <div class="main-menu-links"> 
             <a <?= $menu_settings['here'] === 1 ? 'class="here-rn"' : '' ?> href="http://localhost/manophp/bank_v1/pages/sarasas.php">Klientų sąrašas</a>
             <a <?= $menu_settings['here'] === 2 ? 'class="here-rn"' : '' ?> href="http://localhost/manophp/bank_v1/pages/naujas.php">Naujas klientas</a>
