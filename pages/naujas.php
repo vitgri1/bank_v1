@@ -1,8 +1,35 @@
 <?php
+session_start();
+if (isset($_SESSION['msg'])) {
+    $msg = $_SESSION['msg'];
+    unset($_SESSION['msg']);
+}
+if (isset($_SESSION['values'])) {
+    $values = $_SESSION['values'];
+    unset($_SESSION['values']);
+}
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        function isValidName ($name , $what) {
+        function isValidName ($name) {
             if(strlen($name) <= 3) {
-                header('Location: http://localhost/manophp/bank_v1/pages/naujas.php?'.$what.'=0');
+                $_SESSION['msg'] = ['type' => 'name', 'text' => 'Vardas turi buti ilgesnis nei 3 simboliai'];
+                $_SESSION['values'] = [
+                    'name' =>  $_POST['new-client-name'],
+                    'surname' => $_POST['new-client-surname'],
+                    'account_number' => $_POST['new-client-account-number'],
+                    'id' =>  $_POST['new-client-id']];
+                header('Location: http://localhost/manophp/bank_v1/pages/naujas.php');
+                die;
+            }
+        }
+        function isValidSurame ($name) {
+            if(strlen($name) <= 3) {
+                $_SESSION['msg'] = ['type' => 'surname', 'text' => 'Pavarde turi buti ilgesne nei 3 simboliai'];
+                $_SESSION['values'] = [
+                    'name' =>  $_POST['new-client-name'],
+                    'surname' => $_POST['new-client-surname'],
+                    'account_number' => $_POST['new-client-account-number'],
+                    'id' =>  $_POST['new-client-id']];
+                header('Location: http://localhost/manophp/bank_v1/pages/naujas.php');
                 die;
             }
         }
@@ -20,7 +47,13 @@
                 (int) substr($id, 7 , 3) < 0 ||
                 (int) substr($id, 7 , 3) > 999 
             ) {
-                header('Location: http://localhost/manophp/bank_v1/pages/naujas.php?ID=0');
+                $_SESSION['msg'] = ['type' => 'id', 'text' => 'Netinkamas asmens kodas'];
+                $_SESSION['values'] = [
+                    'name' =>  $_POST['new-client-name'],
+                    'surname' => $_POST['new-client-surname'],
+                    'account_number' => $_POST['new-client-account-number'],
+                    'id' =>  $_POST['new-client-id']];
+                header('Location: http://localhost/manophp/bank_v1/pages/naujas.php');
                 die;
             }
 
@@ -48,7 +81,13 @@
             }
 
             if((int) substr($id, 10 , 1) !== $control_coef) {
-                header('Location: http://localhost/manophp/bank_v1/pages/naujas.php?ID=0');
+                $_SESSION['msg'] = ['type' => 'id', 'text' => 'Netinkamas asmens kodas'];
+                $_SESSION['values'] = [
+                    'name' =>  $_POST['new-client-name'],
+                    'surname' => $_POST['new-client-surname'],
+                    'account_number' => $_POST['new-client-account-number'],
+                    'id' =>  $_POST['new-client-id']];
+                header('Location: http://localhost/manophp/bank_v1/pages/naujas.php');
                 die;
             }
         }
@@ -57,7 +96,13 @@
                 strlen($num) !== 20 ||
                 preg_replace('/\d+/', '', $num) !== 'LT'
             ) {
-                header('Location: http://localhost/manophp/bank_v1/pages/naujas.php?IBAN=0');
+                $_SESSION['msg'] = ['type' => 'iban', 'text' => 'Netinkamas saskaitos numeris'];
+                $_SESSION['values'] = [
+                    'name' =>  $_POST['new-client-name'],
+                    'surname' => $_POST['new-client-surname'],
+                    'account_number' => $_POST['new-client-account-number'],
+                    'id' =>  $_POST['new-client-id']];
+                header('Location: http://localhost/manophp/bank_v1/pages/naujas.php');
                 die;
             }
             foreach($arr as $client) {
@@ -76,8 +121,8 @@
         $id = $_POST['new-client-id'];
         $iban = $_POST['new-client-account-number'];
 
-        isValidName($name, 'name');
-        isValidName($surname, 'surname');
+        isValidName($name);
+        isValidSurame($surname);
         isValidID($id);
         isValidIBAN($iban, $data);       
 
@@ -113,17 +158,29 @@
     ?>
     <section class="new-client-box">
         <form action="" method="post">
+            <?php if(isset($msg)) : ?>
+                <div class="error-message err-<?= $msg['type'] ?>">
+                <?= $msg['text'] ?>
+                </div>
+            <?php endif ?>
             <label for="">Vardas</label>
-            <input class="new-client-name" name="new-client-name" type="text" style="margin-bottom:<?= isset($_GET['name']) && $_GET['name'] == 0 ? '1em': '0' ?>">
-            <div class="error-message err-name" <?= isset($_GET['name']) && $_GET['name'] == 0 ? '': 'hidden' ?> >Vardas turi buti ilgesnis nei 3 simboliai</div>
+            <input class="new-client-name" name="new-client-name" type="text" 
+            <?= isset($msg) && $msg['type'] == 'name' ? 'style="margin-bottom:1em" ': ''?>
+            <?= isset($values) ? 'value="'.$values['name'].'"': '' ?>
+            >
             <label for="">Pavarde</label>
-            <input class="new-client-surname" name="new-client-surname" type="text" style="margin-bottom:<?= isset($_GET['surname']) && $_GET['surname'] == 0 ? '1em': '0' ?>">
-            <div class="error-message err-surname" <?= isset($_GET['surname']) && $_GET['surname'] == 0 ? '': 'hidden' ?> >Pavarde turi buti ilgesne nei 3 simboliai</div>
+            <input class="new-client-surname" name="new-client-surname" type="text"
+            <?= isset($msg) && $msg['type'] == 'surname' ? 'style="margin-bottom:1em"': '' ?>
+            <?= isset($values) ? 'value="'.$values['surname'].'"': ''?>
+            >
             <label for="">Saskaitos nr.</label>
-            <input class="new-client-account-number" name="new-client-account-number" type="text" value="<?= 'LT'.rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9) ?>" readonly>
+            <input class="new-client-account-number" name="new-client-account-number" type="text" value="<?= isset($values) ? $values['account_number'] : 'LT'.rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9) ?>" readonly
+            <?= isset($msg) && $msg['type'] == 'iban' ? 'style="margin-bottom:1em"': ''?>
+            >
             <label for="">Asmens kodas</label>
-            <input class="new-client-id" name="new-client-id" type="text">
-            <div class="error-message err-id" <?= isset($_GET['ID']) && $_GET['ID'] == 0 ? '': 'hidden' ?> >Netinkamas asmens kodas</div>
+            <input class="new-client-id" name="new-client-id" type="text"
+            <?= isset($values) ? 'value="'.$values['id'].'"': '' ?>
+            >
             <button type="submit">Pridėti klientą</button>
             <div <?= isset($_GET['saved']) && $_GET['saved'] == 1 ? '': 'hidden' ?>>Klientas sekmingai pridetas</div>
         </form>

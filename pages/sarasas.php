@@ -1,5 +1,10 @@
 <?php
+    session_start();
     $data = unserialize(file_get_contents(__DIR__ . '/../data.bank'));
+    if (isset($_SESSION['msg'])) {
+        $msg = $_SESSION['msg'];
+        unset($_SESSION['msg']);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,18 +55,9 @@
             }?>
         </ul>
     </section>
-    <?php 
-    if (isset($_GET['deleted'])) : ?>
-        <div class="delete-popup">
-        <div>Sekmingai istrynete klienta kurio asmens kodas buvo: <?= $_GET['deleted'] ?></div>
-        <form action="" method="get">
-            <button type="submit">OK</button>
-        </form>
-        </div>
-    <?php endif;
-    if (isset($_GET['notdeleted'])) : ?>
-        <div class="delete-popup not-delete">
-        <div>Negalite istrinti saskaitoje pinigu turincio kliento kurio asmens kodas yra: <?= $_GET['notdeleted'] ?></div>
+    <?php if (isset($msg)) : ?>
+        <div class="delete-popup <?=  $msg['type'] === 'ok'?'not-delete':''?>">
+        <div><?= $msg['text'] ?></div>
         <form action="" method="get">
             <button type="submit">OK</button>
         </form>

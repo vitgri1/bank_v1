@@ -3,20 +3,20 @@
 require __DIR__ . '/../components/edit.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
-    if ((int) $_POST['value'] < 0){
-        $extra = 0;
-    } else {
-        $extra = (int) $_POST['value'];
-    }
-    if ((int) $client['funds'] - $extra < 0){
-        header ('Location: http://localhost/manophp/bank_v1/pages/nuskaiciuoti.php?id='.$id.'&negative=1');
+    header ('Location: http://localhost/manophp/bank_v1/pages/nuskaiciuoti.php?id='.$id);
+    if ((float) $_POST['value'] <= 0){
         die;
     } else {
-        header ('Location: http://localhost/manophp/bank_v1/pages/nuskaiciuoti.php?id='.$id);
+        $extra = (float) $_POST['value'];
     }
-    $client['funds'] = (int) $client['funds'] - $extra;
+    if ((float) $client['funds'] - $extra < 0){
+        $_SESSION['msg'] = ['type' => 'negative', 'text' => 'Negalite nuskaiciuoti daugiau lesu nei klientas turi!', 'value' => $extra];
+        die;
+    }
+    $client['funds'] = (float) $client['funds'] - $extra;
     $all_clients[] = $client;
     $all_clients = serialize($all_clients);
+    $_SESSION['msg'] = ['type' => 'withdraw', 'text' => 'Sėkmingai nuskaičiavote '.$extra. '€'];
     file_put_contents(__DIR__ . '/../data.bank', $all_clients);
     die;
 }
@@ -45,18 +45,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
         <div><?= $client['client_surname'] ?></div>
         <div><?= $client['funds'] ?></div>
         <form action="" method="post">
-            <input name="value" type="number">
+        <input name="value" type="number" step="0.01" min="0" 
+        <?= isset($msg['value'])? 'value="'.$msg['value'].'"':'' ?>
+        >
             <button type="submit">Nuskaičiuoti lėšas</button>
         </form>
     </section>
-    <?php 
-    if (isset($_GET['negative'])) : ?>
-        <div class="delete-popup negative">
-        <div>Negalite nuskaiciuoti daugiau lesu nei klientas turi!</div>
-        <form action="http://localhost/manophp/bank_v1/pages/nuskaiciuoti.php?id=<?= $_GET['id'] ?>" method="post">
-            <button type="submit">OK</button>
-        </form>
-        </div>
+    <?php if (isset($msg)) : ?>
+        <div><?= $msg['text'] ?></div>
     <?php endif ?>
 </body>
 </html>

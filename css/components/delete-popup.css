@@ -17,7 +17,3 @@
 .delete-popup.not-delete {
     background-color: rgb(190, 190, 124);
 }
-
-.delete-popup.negative {
-    background-color: orange;
-}

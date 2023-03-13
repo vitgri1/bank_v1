@@ -3,16 +3,17 @@
 require dirname(__DIR__, 1) . '/components/edit.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
-    if ((int) $_POST['value'] < 0){
-        $extra = 0;
+    header ('Location: http://localhost/manophp/bank_v1/pages/prideti.php?id='.$id);
+    if ((float) $_POST['value'] <= 0){
+        die;
     } else {
-        $extra = (int) $_POST['value'];
+        $extra = (float) $_POST['value'];
     }
-    $client['funds'] = (int) $client['funds'] + $extra;
+    $client['funds'] = (float) $client['funds'] + $extra;
     $all_clients[] = $client;
     $all_clients = serialize($all_clients);
+    $_SESSION['msg'] = ['type' => 'deposit', 'text' => 'Sėkmingai pridėjote '.$extra. '€'];
     file_put_contents(dirname(__DIR__, 1) . '/data.bank', $all_clients);
-    header ('Location: http://localhost/manophp/bank_v1/pages/prideti.php?id='.$id);
     die;
 }
 
@@ -40,9 +41,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
         <div><?= $client['client_surname'] ?></div>
         <div><?= $client['funds'] ?></div>
         <form action="" method="post">
-            <input name="value" type="number">
+            <input name="value" type="number" step="0.01" min="0">
             <button type="submit">Pridėti lėšas</button>
         </form>
     </section>
+    <?php if (isset($msg)) : ?>
+        <div><?= $msg['text'] ?></div>
+    <?php endif ?>
 </body>
 </html>
