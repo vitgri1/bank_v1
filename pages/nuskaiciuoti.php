@@ -11,16 +11,12 @@ if (isset($_SESSION['name'], $_SESSION['logged_in'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
     header ('Location: http://localhost/manophp/bank_v1/pages/nuskaiciuoti.php?id='.$id);
-    if ((float) $_POST['value'] <= 0){
-        die;
-    } else {
-        $extra = (float) $_POST['value'];
-    }
+    $extra = isValid($_POST['value']);
     if ((float) $client['funds'] - $extra < 0){
         $_SESSION['msg'] = ['type' => 'negative', 'text' => 'Negalite nuskaiciuoti daugiau lesu nei klientas turi!', 'value' => $extra];
         die;
     }
-    $client['funds'] = (float) $client['funds'] - $extra;
+    $client['funds'] = truncate(((float) $client['funds'] - $extra), 2);
     $all_clients[] = $client;
     $all_clients = serialize($all_clients);
     $_SESSION['msg'] = ['type' => 'withdraw', 'text' => 'Sėkmingai nuskaičiavote '.$extra. '€'];
@@ -52,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
         <div><?= $client['client_surname'] ?></div>
         <div><?= $client['funds'] ?></div>
         <form action="" method="post">
-        <input name="value" type="number" step="0.01" min="0" 
+        <input name="value" type="text"
         <?= isset($msg['value'])? 'value="'.$msg['value'].'"':'' ?>
         >
             <button type="submit">Nuskaičiuoti lėšas</button>
