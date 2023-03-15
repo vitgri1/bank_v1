@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
     header('Location: http://localhost/manophp/bank_v1/pages/sarasas.php');
     die;
 }
+
 if (isset($_SESSION['name'], $_SESSION['logged_in'])) {
     unset($_SESSION['name'], $_SESSION['logged_in']);
 }
@@ -60,7 +61,6 @@ if (isset($_SESSION['name'], $_SESSION['logged_in'])) {
         <?php if(isset($error)) : ?>
             <div><?= $error ?></div>
         <?php endif ?>
-
     </section>
 </body>
 </html>

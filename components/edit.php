@@ -10,7 +10,7 @@ if (isset($_SESSION['msg'])) {
     unset($_SESSION['msg']);
 }
 $id = $_GET['id'];
-$all_clients = unserialize(file_get_contents(dirname(__DIR__, 1) . '/data.bank'));
+$all_clients = unserialize(file_get_contents(__DIR__ . '/../data.bank'));
 
 $client = array_filter($all_clients, fn($c) => $c['client_id'] === $id);
 $client = $client[array_key_first($client)];

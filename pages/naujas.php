@@ -96,6 +96,16 @@ if (isset($_SESSION['name'], $_SESSION['logged_in'])) {
                 header('Location: http://localhost/manophp/bank_v1/pages/naujas.php');
                 die;
             }
+            if (count(array_filter((unserialize(file_get_contents(__DIR__ . '/../data.bank'))), fn($c) => $c['client_id'] === $id)) !== 0) {
+                $_SESSION['msg'] = ['type' => 'id', 'text' => 'Asmens kodas jau egzistuoja'];
+                $_SESSION['values'] = [
+                    'name' =>  $_POST['new-client-name'],
+                    'surname' => $_POST['new-client-surname'],
+                    'account_number' => $_POST['new-client-account-number'],
+                    'id' =>  $_POST['new-client-id']];
+                header('Location: http://localhost/manophp/bank_v1/pages/naujas.php');
+                die;
+            }
         }
         function isValidIBAN(&$num, $arr) {
             if(
