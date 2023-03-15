@@ -12,7 +12,7 @@ if (isset($_SESSION['name'], $_SESSION['logged_in'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
     header ('Location: http://localhost/manophp/bank_v1/pages/prideti.php?id='.$id);
     $extra = isValid($_POST['value']);
-    $client['funds'] = truncate(((float) $client['funds'] + $extra), 2);
+    $client['funds'] = addZeros(truncate(((float) $client['funds'] + $extra), 2));
     $all_clients[] = $client;
     $all_clients = serialize($all_clients);
     $_SESSION['msg'] = ['type' => 'deposit', 'text' => 'Sėkmingai pridėjote '.$extra. '€'];
@@ -36,10 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
         require __DIR__ . '/../components/menu.php';
     ?>
     <section class="deposit-client edit-block">
-        <div>Vardas</div>
-        <div>Pavardė</div>
-        <div>Sąskaitos likutis</div>
-        <div>Pridedama suma</div>
+        <b>Vardas</b>
+        <b>Pavardė</b>
+        <b>Sąskaitos likutis</b>
+        <b>Pridedama suma</b>
         <div><?= $client['client_name'] ?></div>
         <div><?= $client['client_surname'] ?></div>
         <div><?= $client['funds'] ?></div>
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
         </form>
     </section>
     <?php if (isset($msg)) : ?>
-        <div><?= $msg['text'] ?></div>
+        <div class="error-msg"><?= $msg['text'] ?></div>
     <?php endif ?>
 </body>
 </html>

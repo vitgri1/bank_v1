@@ -16,9 +16,9 @@ $client = $client[array_key_first($client)];
 $clients = array_filter($clients, fn($c) => $c['client_id'] != $id);
 
 if ($client['funds'] > 0) { // if not deleted
-    $_SESSION['msg'] = ['type' => 'error', 'text' => 'Negalite istrinti saskaitoje pinigu turincio kliento kurio asmens kodas yra:'.$id];
+    $_SESSION['msg'] = ['type' => 'error', 'text' => 'Negalite istrinti saskaitoje pinigu turincio kliento kurio asmens kodas yra: '.$id];
 } else { // if deleted
-    $_SESSION['msg'] = ['type' => 'ok', 'text' => 'Sėkmingai ištrynėte klientą kurio asmens kodas buvo:'.$id];
+    $_SESSION['msg'] = ['type' => 'ok', 'text' => 'Sėkmingai ištrynėte klientą kurio asmens kodas buvo: '.$id];
     $clients = serialize($clients);
     file_put_contents(__DIR__ . '/../data.bank', $clients);
 }

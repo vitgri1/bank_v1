@@ -1,9 +1,9 @@
 <?php if (isset($menu_settings)): ?>
     <section class="main-menu">
-        <div>
+        <div class="header">
             <h1>Vitalijaus bankas</h1>
-            <div>
-                <?= isset($logged_in) ? $logged_in : '' ?>
+            <div class="login">
+                <?= isset($logged_in) ? '<div>'.$logged_in.'</div>' : '' ?>
                 <a href="http://localhost/manophp/bank_v1/index.php">Log out</a>
             </div>
         </div>

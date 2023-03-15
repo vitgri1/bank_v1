@@ -4,23 +4,46 @@
 
 /* CUSTOM STYLE BELOW THIS COMMENT LINE */
 
-.main-menu-list{
+.login {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items:flex-start;
     gap: 1em;
     width: 80%;
     margin: 2em 10%;
+    font-size: 16px;
+    align-items: center;
 }
 
-.main-menu-list > a{
-    color: #000;
-    text-decoration: none;
-    border: 1px solid #00000054;
-    padding: 0.75em 2em;
-    line-height: 1em;
+.login > form {
+    display: flex;
+    flex-direction: column;
+    min-width: 350px;
+    gap: 0.5em;
+
+}
+.login > form > input,
+.login > form > button {
+    text-align: center;
+    border: 1px solid #000;
+    line-height: 2em;
+    font-family: monospace;
+    background-color: #fff;
+}
+.login > form > input:first-of-type{
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+.login > form > button {
+    background-color: rgb(184, 184, 184);
+    cursor: pointer;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+}
+.login > form > button:hover {
+    background-color: greenyellow;
 }
 
-.main-menu-list > a:hover{
-    background-color: #00000044;
+.login > div{
+    text-decoration: underline red;
 }

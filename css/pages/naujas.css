@@ -5,7 +5,7 @@
 /* CUSTOM STYLE BELOW THIS COMMENT LINE */
 
 .new-client-box{
-    background-color: red;
+    
 }
 
 .new-client-box > form {
@@ -16,24 +16,35 @@
     margin: 2em 10%;
     align-items: center;
     position: relative;
+    background-color: red;
+    border: 3px solid blue;
+    border-radius: 1em;
+    padding: 0.5em;
+    background-color: rgb(184, 184, 184);
 }
 .error-message{
     position: absolute;
     right: 0;
     width: calc(100%/1.8);
-    padding-left: 1em;
+    padding-left: 0.5em;
+    text-decoration: underline red;
 }
 
 .err-name {
-    top: 1.5em;
+    top: 2.15em;
 }
 
 .err-surname {
-    top: 3.5em;
+    top: 4.1em;
 }
 
 .err-id {
-    top: 7.5em;
+    top: 7.8em;
+}
+
+.new-client-box > form > label {
+    font-weight: bold;
+    font-size: 1.25em;
 }
 
 .new-client-box > form > input {
@@ -41,5 +52,18 @@
 }
 
 .new-client-box > form > button {
+    background-color: #fff;
+    color: #000;
+    font-family: monospace;
+    border: 1px solid #000;
+    border-radius: 5px;
     padding: 0.75em 2em;
+    line-height: 1em;
+    user-select: none;
+    font-size: 12px;
+    display: inline-block;
+}
+
+.new-client-box > form > button:hover{
+    background-color: greenyellow;
 }

@@ -33,3 +33,12 @@ function isValid($val)
         return (float) $val;
     }
 }
+
+function addZeros($val)
+{
+    $l = strlen($val);
+    if(($p = strpos($val, '.')) !== false && $l === $p + 2) {
+        $val = $val.'0';
+    }
+    return $val;
+}

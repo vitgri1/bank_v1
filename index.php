@@ -49,6 +49,7 @@ if (isset($_SESSION['name'], $_SESSION['logged_in'])) {
 </head>
 <body>
     <section class="login">
+        <h1>Prisijunkite prie banko</h1>
         <form action="" method="post">
             <input name="login-name" type="text" placeholder="Name"
             <?= isset($values)? 'value="'.$values['name'].'"':'' ?>

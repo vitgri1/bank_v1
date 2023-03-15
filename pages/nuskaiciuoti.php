@@ -13,10 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
     header ('Location: http://localhost/manophp/bank_v1/pages/nuskaiciuoti.php?id='.$id);
     $extra = isValid($_POST['value']);
     if ((float) $client['funds'] - $extra < 0){
-        $_SESSION['msg'] = ['type' => 'negative', 'text' => 'Negalite nuskaiciuoti daugiau lesu nei klientas turi!', 'value' => $extra];
+        $_SESSION['msg'] = ['type' => 'negative', 'text' => 'Negalite nuskaičiuoti daugiau lėšų nei klientas turi!', 'value' => $extra];
         die;
     }
-    $client['funds'] = truncate(((float) $client['funds'] - $extra), 2);
+    $client['funds'] = addZeros(truncate(((float) $client['funds'] - $extra), 2));
     $all_clients[] = $client;
     $all_clients = serialize($all_clients);
     $_SESSION['msg'] = ['type' => 'withdraw', 'text' => 'Sėkmingai nuskaičiavote '.$extra. '€'];
@@ -40,10 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
         require __DIR__ . '/../components/menu.php';
     ?>
     <section class="withdraw-client edit-block">
-        <div>Vardas</div>
-        <div>Pavardė</div>
-        <div>Sąskaitos likutis</div>
-        <div>Nuskaičiuojama suma</div>
+        <b>Vardas</b>
+        <b>Pavardė</b>
+        <b>Sąskaitos likutis</b>
+        <b>Nuskaičiuojama suma</b>
         <div><?= $client['client_name'] ?></div>
         <div><?= $client['client_surname'] ?></div>
         <div><?= $client['funds'] ?></div>
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
         </form>
     </section>
     <?php if (isset($msg)) : ?>
-        <div><?= $msg['text'] ?></div>
+        <div class="error-msg"><?= $msg['text'] ?></div>
     <?php endif ?>
 </body>
 </html>

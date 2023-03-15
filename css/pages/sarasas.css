@@ -13,19 +13,53 @@
 }
 
 .client-list > .client-list-item {
-    border: 1px solid greenyellow;
+    border: 3px solid greenyellow;
     padding: 0.5em;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 0.5em;
     justify-items: center;
     border-bottom: none;
+    background-color: rgb(184, 184, 184);
 }
 
+.client-list > .client-list-item:first-child {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
 .client-list > .client-list-item:last-child {
-    border-bottom: 1px solid greenyellow;
+    border-bottom: 3px solid greenyellow;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
-.client-list > .client-list-item > button {
+.client-list > .client-list-item > b{
+    border-bottom: 1px solid greenyellow;
     width: 100%;
+    text-align: center;
+    padding-bottom: 0.25em;
+    font-size: 1.25em;
+}
+
+.client-list-item > form > button,
+.client-list-item > a {
+    background-color: #fff;
+    color: #000;
+    font-family: monospace;
+    text-decoration: none;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 0.25em 1em;
+    line-height: 1em;
+    display: inline-block;
+    word-spacing: -0.25em;
+    user-select: none;
+}
+
+.client-list-item > a:hover{
+    background-color: greenyellow;
+}
+
+.client-list-item > form > button:hover{
+    background-color: rgba(220, 20, 20, 0.7);
 }

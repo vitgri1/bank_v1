@@ -11,9 +11,15 @@
     display: flex;
     flex-direction: column;
     gap: 0.5em;
-    background-color: aquamarine;
+    background-color: rgb(185, 155, 155);
 }
 
 .delete-popup.not-delete {
     background-color: rgb(190, 190, 124);
+}
+
+.delete-popup  button {
+    display: inline-block;
+    padding: 0.25em 1em;
+    line-height: 1em;
 }

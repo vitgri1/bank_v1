@@ -28,25 +28,20 @@
     ?>
     <section class="client-list-box">
         <ul class="client-list">
-            <li class="client-list-item">
-                <div>Vardas</div>
-                <div>Pavardė</div>
-                <div>Asmens kodas</div>
-                <div>Sąskaitos numeris</div>
-                <div>Sąskaitos likutis</div>
-                <div></div>
-                <a href="http://localhost/manophp/bank_v1/pages/prideti.php">Pridėti lėšų</a>
-                <a href="http://localhost/manophp/bank_v1/pages/nuskaiciuoti.php">Nuskaičiuoti lėšas</a>
-                <button>Ištrinti</button>
-            </li>
             <?php
                 if (isset($data) && count($data) > 0){
                     usort($data,fn($a,$b)=> $a['client_surname'] <=> $b['client_surname']);
                     foreach ($data as $client) : ?>
             <li class="client-list-item">
+                <b>Vardas</b>
+                <b>Pavardė</b>
+                <b>Asmens kodas</b>
                 <div><?= $client['client_name'] ?></div>
                 <div><?= $client['client_surname'] ?></div>
                 <div><?= $client['client_id'] ?></div>
+                <b>Sąskaitos numeris</b>
+                <b>Sąskaitos likutis</b>
+                <div></div>
                 <div><?= $client['client_account_number'] ?></div>
                 <div><?= $client['funds'] ?></div>
                 <div></div>
@@ -57,7 +52,7 @@
                 </form>
             </li>
             <?php endforeach;} else {
-                echo '<li class="client-list-item"><div> Nei vieno kliento nėra :( </div></li>';
+                echo '<li class="client-list-item"><div> Nei vieno kliento nėra! </div></li>';
             }?>
         </ul>
     </section>
