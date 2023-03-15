@@ -4,7 +4,7 @@
             <h1>Vitalijaus bankas</h1>
             <div>
                 <?= isset($logged_in) ? $logged_in : '' ?>
-                <a href="http://localhost/manophp/bank_v1/login.php">Log out</a>
+                <a href="http://localhost/manophp/bank_v1/index.php">Log out</a>
             </div>
         </div>
         <div class="main-menu-links"> 

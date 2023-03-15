@@ -8,7 +8,7 @@
     if (isset($_SESSION['name'], $_SESSION['logged_in'])) {
         $logged_in = $_SESSION['name'];
     } else {
-        header ('Location: http://localhost/manophp/bank_v1/login.php');
+        header ('Location: http://localhost/manophp/bank_v1/index.php');
         die;
     }
 ?>

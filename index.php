@@ -17,13 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
     $user = array_filter($all_logins, fn($l) => $l['name'] === $_POST['login-name']);
     if (count($user) === 0){
         $_SESSION['invalid'] = 'Neteisingas prisijungimo vardas';
-        header('Location: http://localhost/manophp/bank_v1/login.php');
+        header('Location: http://localhost/manophp/bank_v1/index.php');
         die;
     }
     $user = $user[array_key_first($user)];
     if (!password_verify($_POST['login-password'], $user['password'])){
         $_SESSION['invalid'] = 'Neteisingas slaptažodis';
-        header('Location: http://localhost/manophp/bank_v1/login.php');
+        header('Location: http://localhost/manophp/bank_v1/index.php');
         die;
     }
     $_SESSION['logged_in'] = true;
