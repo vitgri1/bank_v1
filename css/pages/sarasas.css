@@ -6,10 +6,46 @@
 
 /* CUSTOM STYLE BELOW THIS COMMENT LINE */
 
-.client-list {
+.client-list,
+.sort {
     list-style-type: none;
     width: 80%;
-    margin: 2em 10%;
+    margin: 0.5em 10%;
+}
+
+.sort {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.sort > legend{
+    margin-right: 0.5em;
+}
+
+.sort > select{
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-size: 14px;
+    font-family: inherit;
+    height: 1.75em;
+    border: 1px solid #000;
+    border-right: none;
+}
+
+.sort > button{
+    font-family: inherit;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    font-size: 14px;
+    height: 1.75em;
+    padding: 0 1em;
+    border: 1px solid #000;
+    cursor: pointer;
+}
+
+.sort > button:hover{
+    background-color: rgb(184, 184, 184);
 }
 
 .client-list > .client-list-item {
@@ -54,6 +90,7 @@
     display: inline-block;
     word-spacing: -0.25em;
     user-select: none;
+    cursor: pointer;
 }
 
 .client-list-item > a:hover{

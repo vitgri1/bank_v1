@@ -11,6 +11,14 @@
         header ('Location: http://localhost/manophp/bank_v1/index.php');
         die;
     }
+    if (isset($_GET['sort'])){
+        $sort = $_GET['sort'];
+    } else {
+        $sort = 'sur_asc';
+    }
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,11 +34,46 @@
         $menu_settings = ['here'=> 1, 'edit' => false];
         require __DIR__ . '/../components/menu.php';
     ?>
-    <section class="client-list-box">
+        <form class="sort" action="" method="get">
+            <legend>Rūšiavimas:</legend>
+            <select name="sort">
+            <option value="sur_asc" <?php if ($sort == 'sur_asc') echo 'selected' ?>>Pavardė A-Z</option>
+            <option value="sur_desc" <?php if ($sort == 'sur_desc') echo 'selected' ?>>Pavardė Z-A</option>
+            <option value="name_asc" <?php if ($sort == 'name_asc') echo 'selected' ?>>Vardas A-Z</option>
+            <option value="name_desc" <?php if ($sort == 'name_desc') echo 'selected' ?>>Vardas Z-A</option>
+            <option value="id_asc" <?php if ($sort == 'id_asc') echo 'selected' ?>>Asmens kodas 1-9</option>
+            <option value="id_desc" <?php if ($sort == 'id_desc') echo 'selected' ?>>Asmens kodas 9-1</option>
+            <option value="acc_asc" <?php if ($sort == 'acc_asc') echo 'selected' ?>>Sąskaitos Nr. 1-9</option>
+            <option value="acc_desc" <?php if ($sort == 'acc_desc') echo 'selected' ?>>Sąskaitos Nr. 9-1</option>
+            <option value="fun_asc" <?php if ($sort == 'fun_asc') echo 'selected' ?>>Likutis 1-9</option>
+            <option value="fun_desc" <?php if ($sort == 'fun_desc') echo 'selected' ?>>Likutis 9-1</option>
+            </select>
+            <button type="submit">Išrūšiuoti</button>
+        </form>
         <ul class="client-list">
             <?php
                 if (isset($data) && count($data) > 0){
-                    usort($data,fn($a,$b)=> $a['client_surname'] <=> $b['client_surname']);
+                    if ($sort === 'sur_asc'){
+                        usort($data, fn($a,$b) => $a['client_surname'] <=> $b['client_surname']);
+                    } elseif ($sort === 'sur_desc') {
+                        usort($data, fn($a,$b) => $b['client_surname'] <=> $a['client_surname']);
+                    } elseif ($sort === 'name_asc') {
+                        usort($data, fn($a,$b) => $a['client_name'] <=> $b['client_name']);
+                    } elseif ($sort === 'name_desc') {
+                        usort($data, fn($a,$b) => $b['client_name'] <=> $a['client_name']);
+                    } elseif ($sort === 'id_asc') {
+                        usort($data, fn($a,$b) => $a['client_id'] <=> $b['client_id']);
+                    } elseif ($sort === 'id_desc') {
+                        usort($data, fn($a,$b) => $b['client_id'] <=> $a['client_id']);
+                    } elseif ($sort === 'acc_asc') {
+                        usort($data, fn($a,$b) => $a['client_account_number'] <=> $b['client_account_number']);
+                    } elseif ($sort === 'acc_desc') {
+                        usort($data, fn($a,$b) => $b['client_account_number'] <=> $a['client_account_number']);
+                    } elseif ($sort === 'fun_asc') {
+                        usort($data, fn($a,$b) => $a['funds'] <=> $b['funds']);
+                    } elseif ($sort === 'fun_desc') {
+                        usort($data, fn($a,$b) => $b['funds'] <=> $a['funds']);
+                    }
                     foreach ($data as $client) : ?>
             <li class="client-list-item">
                 <b>Vardas</b>
