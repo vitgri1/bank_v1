@@ -11,9 +11,9 @@ $id = $_GET['id'];
 
 $clients = unserialize(file_get_contents(__DIR__ . '/../data.bank'));
 
-$client = array_filter($clients, fn($c) => $c['client_id'] === $id);
+$client = array_filter($clients, fn($c) => $c['uid'] === $id);
 $client = $client[array_key_first($client)];
-$clients = array_filter($clients, fn($c) => $c['client_id'] != $id);
+$clients = array_filter($clients, fn($c) => $c['uid'] != $id);
 
 if ($client['funds'] > 0) { // if not deleted
     $_SESSION['msg'] = ['type' => 'error', 'text' => 'Negalite istrinti saskaitoje pinigu turincio kliento kurio asmens kodas yra: '.$id];

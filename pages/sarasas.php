@@ -45,9 +45,9 @@
                 <div><?= $client['client_account_number'] ?></div>
                 <div><?= $client['funds'] ?></div>
                 <div></div>
-                <a href="http://localhost/manophp/bank_v1/pages/prideti.php?id=<?= $client['client_id'] ?>">Pridėti lėšų</a>
-                <a href="http://localhost/manophp/bank_v1/pages/nuskaiciuoti.php?id=<?= $client['client_id'] ?>">Nuskaičiuoti lėšas</a>
-                <form action="http://localhost/manophp/bank_v1/pages/istrinti.php?id=<?= $client['client_id'] ?>" method="post">
+                <a href="http://localhost/manophp/bank_v1/pages/prideti.php?id=<?= $client['uid'] ?>">Pridėti lėšų</a>
+                <a href="http://localhost/manophp/bank_v1/pages/nuskaiciuoti.php?id=<?= $client['uid'] ?>">Nuskaičiuoti lėšas</a>
+                <form action="http://localhost/manophp/bank_v1/pages/istrinti.php?id=<?= $client['uid'] ?>" method="post">
                     <button type="submit">Ištrinti</button>
                 </form>
             </li>

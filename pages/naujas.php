@@ -148,6 +148,7 @@ if (isset($_SESSION['name'], $_SESSION['logged_in'])) {
             'client_account_number' => $iban,
             'client_id' =>  $id,
             'funds' => 0,
+            'uid' => uniqid(),
         ];
         $data[] = $client;
 

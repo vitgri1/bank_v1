@@ -12,13 +12,13 @@ if (isset($_SESSION['msg'])) {
 $id = $_GET['id'];
 $all_clients = unserialize(file_get_contents(__DIR__ . '/../data.bank'));
 
-$client = array_filter($all_clients, fn($c) => $c['client_id'] === $id);
+$client = array_filter($all_clients, fn($c) => $c['uid'] === $id);
 if (count($client) === 0) {
     http_response_code(400);
     die;
 }
 $client = $client[array_key_first($client)];
-$all_clients = array_filter($all_clients, fn($c) => $c['client_id'] !== $id);
+$all_clients = array_filter($all_clients, fn($c) => $c['uid'] !== $id);
 
 function truncate($val, $f="0")
 {
